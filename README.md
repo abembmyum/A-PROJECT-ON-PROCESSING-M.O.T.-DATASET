@@ -221,7 +221,8 @@ After loading the data in Cloud Storage and Big Query, we will structure our dat
 
 Here, we are going to do partitioning by using the date data type as BigQuery supports only this date type for partitioning. As a result, we created 2 partitioned table i.e. test_result_partitioned and test_item_partitioned. Clustering is done using “make” of the vehicles. So, the 2 partitioned table is clustered by make.
 
-The following queries are used to do the partitioning and clustering: -- result table, partitioned by test_date with Month interval and clustered by Make CREATE OR REPLACE TABLE `mot_data.test_result_partitioned` PARTITION BY TIMESTAMP_TRUNC(test_date, MONTH) CLUSTER BY make AS SELECT test_id, test_date, test_result, make, model FROM `mot_data.test_result` WHERE test_class_id = 4 AND test_type = 'NT' AND (test_result='F' OR test_result='ABA') -- item table, partitioned by test_date with Month interval and clustered by Make CREATE OR REPLACE TABLE `mot_data.test_item_partitioned` PARTITION BY TIMESTAMP_TRUNC(test_date, MONTH) CLUSTER BY make AS SELECT rfr_id, r.test_result, f.rfr_type_code,r.test_date, r.make, r.model, f.dangerous_mark FROM `mot_data.test_failure` f JOIN `mot_data.test_result` r on f.test_id = r.test_id WHERE r.test_class_id = 4 AND r.test_type = 'NT' AND (r.test_result='F' OR r.test_result='ABA')
+The following queries are used to do the partitioning and clustering: 
+Open queries folders.
 
 We can see that the tables are created as shown below:
 ![image](https://github.com/user-attachments/assets/171d110e-d747-46df-9852-f0c1c3c988ba)
